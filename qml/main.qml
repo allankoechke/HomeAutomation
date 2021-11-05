@@ -2,6 +2,9 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.4
 
+// Import the backend
+// import ke.lalan 1.0
+
 Window {
     width: 800
     height: 480
@@ -14,6 +17,44 @@ Window {
     property real brightnessValue: 56
     property bool isDimmingLightsAllowed: true
 
+    onIsFanRunningChanged: {
+        backend.set_fan_on(isFanRunning)
+    }
+
+    onIsLightsRedOnChanged: {
+        backend.set_red_led(isLightsRedOn)
+    }
+
+    onIsLightsGreenOnChanged: {
+        backend.set_green_led(isLightsGreenOn)
+    }
+
+    onIsDimmingLightsAllowedChanged: {
+        backend.set_yellow_led(true)
+    }
+
+    onBrightnessValueChanged: {
+        if (isDimmingLightsAllowed){
+            backend.set_brightness(brightnessValue)
+        }
+    }
+
+    // onCompleted, set the default GPIO pins state
+    Component.onCompleted: {
+        backend.set_fan_on(isFanRunning)
+
+        backend.set_red_led(isLightsRedOn)
+
+        backend.set_green_led(isLightsGreenOn)
+
+        backend.set_yellow_led(true)
+
+        if (isDimmingLightsAllowed){
+            backend.set_brightness(brightnessValue)
+        }
+    }
+
+    // Set the background image
     Image {
         source: Qt.resolvedUrl("../assets/images/5577112.jpg")
         fillMode: Image.PreserveAspectCrop
@@ -22,6 +63,7 @@ Window {
         Item {
             anchors.fill: parent
 
+            // Give a 50% opacity black background
             Rectangle {
                 color: Qt.rgba(0,0,0,0.5)
                 height: 80
@@ -283,6 +325,7 @@ Window {
         }
     } // Image
 
+    // Rotation Animation for the Fan
     RotationAnimation {
         target: fanImage
         from: 0; to: 360
