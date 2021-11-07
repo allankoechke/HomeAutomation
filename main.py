@@ -15,10 +15,10 @@ except Exception as err:
     err = err
 
 # SET GPIO PINS
-LED_RED = 5
-LED_GREEN = 6
-LED_YELLOW = 7
-FAN_PIN = 8
+LED_RED = 27
+LED_GREEN = 23
+LED_YELLOW = 19
+FAN_PIN = 24
 
 '''
 Raspberry Pi comes with RPi.GPIO Library which is not usable on
