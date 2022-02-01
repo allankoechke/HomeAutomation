@@ -97,6 +97,7 @@ Window {
 
                     Image {
                         height: 40
+                        visible: false
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         anchors.rightMargin: 20
@@ -251,6 +252,7 @@ Window {
                         }
 
                         Rectangle {
+                            id: rightContentRect
                             color: Qt.rgba(0,0,0,0.5)
                             radius: 10
                             width: parent.width * 2/3
@@ -282,8 +284,8 @@ Window {
                                 CircularProgressBar {
                                     id: progress1
                                     lineWidth: 15
+                                    size: rightContentRect.width * 0.5
                                     value: brightnessValue/100
-                                    size: 200
                                     secondaryColor: Qt.rgba(0,0,0,0.4) // "#e0e0e0"
                                     primaryColor: "#29b6f6"
                                     anchors.horizontalCenter: parent.horizontalCenter
